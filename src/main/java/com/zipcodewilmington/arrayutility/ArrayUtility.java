@@ -63,15 +63,9 @@ public class ArrayUtility<E> {
     }
 
     public E[] removeValue(E valueToRemove) {
-        ArrayList<E> newList = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            if (!array[i].equals(valueToRemove))
-                newList.add(array[i]);
-        }
+        List<E> list = Arrays.stream(array).filter(value -> !value.equals(valueToRemove)).collect(Collectors.toList());
         E[] result = (E[]) Array.newInstance(valueToRemove.getClass(), this.array.length - getNumberOfOccurrences(valueToRemove));
-        for (int i = 0; i < result.length; i++) {
-            result[i] = newList.get(i);
-        }
+        list.toArray(result);
         return result;
     }
 }
